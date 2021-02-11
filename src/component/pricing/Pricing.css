@@ -1,0 +1,349 @@
+.containerPricing{
+    min-height: 75vh;
+    width: 100%;
+    margin-top: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    background-color: rgb(252, 252, 252);
+    margin-top: 50px;
+    padding-bottom: 5vh;
+}
+
+.contentPlan{
+    position: relative;
+    width: 300px;
+    min-height: 400px;
+    padding-bottom: 130px;
+    box-shadow: 2px 2px 20px rgb(190, 190, 190);
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.952);
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-top: 150px;
+}
+
+.titlePlan2{
+    font-family: 'Inter', sans-serif;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+    width: 330px;
+    font-weight: 800;
+    margin-top: -30px;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 6px rgb(165, 165, 165);
+    background-color: rgb(37, 122, 197);
+    background: -moz-linear-gradient(
+      left,
+      rgba(57, 100, 208, 1) 0%,
+      rgba(45, 193, 201, 1) 100%
+    );
+    background: -webkit-gradient(
+      left top,
+      right top,
+      color-stop(0%, rgba(57, 100, 208, 1)),
+      color-stop(100%, rgba(45, 193, 201, 1))
+    );
+    background: -webkit-linear-gradient(
+      left,
+      rgba(57, 100, 208, 1) 0%,
+      rgba(45, 193, 201, 1) 100%
+    );
+    background: -o-linear-gradient(
+      left,
+      rgba(57, 100, 208, 1) 0%,
+      rgba(45, 193, 201, 1) 100%
+    );
+    background: -ms-linear-gradient(
+      left,
+      rgba(57, 100, 208, 1) 0%,
+      rgba(45, 193, 201, 1) 100%
+    );
+    background: linear-gradient(
+      to right,
+      rgba(57, 100, 208, 1) 0%,
+      rgba(45, 193, 201, 1) 100%
+    );
+}
+
+.pricePlan{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    font-size: 30px;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 50px;
+
+    background-color: rgb(37, 122, 197);
+}
+
+.buttonPricing2{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    border-radius: 15px;
+    height: 80px;
+    width: 180px;
+    color: white;
+    font-family: 'Sen', sans-serif;
+    font-size: 25px;
+    padding: 10px;
+    box-shadow: 1px 1px 8px rgb(235, 235, 235);
+    bottom: 30px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: bold;
+
+
+    background-color: rgb(37, 122, 197);
+  background: -moz-linear-gradient(
+    left,
+    rgba(57, 100, 208, 1) 0%,
+    rgb(45, 170, 201) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(57, 100, 208, 1) 0%,
+    rgb(45, 170, 201) 100%
+  );
+}
+
+
+
+.contentPlanStripe{
+    position: relative;
+    width: 100%;
+    height: 590px;
+    box-shadow: 2px 2px 20px rgb(190, 190, 190);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 2;
+    background-color: rgba(255, 255, 255, 0.952);
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.FormGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 15px 20px;
+    padding: 0;
+    border-style: none;
+    background: rgba(57, 100, 208, 1);
+    will-change: opacity, transform;
+    box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 #829fff;
+    border-radius: 4px;
+    height: 50px;
+    width: 90%;
+}
+  
+  .FormRow {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-left: 15px;
+    border-top: 1px solid #819efc;
+  }
+  
+  .StripeElement--webkit-autofill {
+    background: transparent !important;
+  }
+  
+  .StripeElement {
+    width: 100%;
+    padding: 11px 15px 11px 0;
+  }
+
+  .inputPricing{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 15px 20px;
+    padding: 0;
+    border-style: none;
+    background-color: rgb(37, 122, 197);
+    will-change: opacity, transform;
+    box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 #829fff;
+    border-radius: 4px;
+    height: 50px;
+    width: 90%;
+    color: white;
+    font-family: 'Sen', sans-serif;
+    text-align: center;
+    font-size: 18px;
+  } .inputPricing::placeholder{ 
+        color: white;
+        font-size: 18px;
+        font-family: 'Sen', sans-serif;
+    }
+
+
+
+.inputPricingCard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 15px 20px;
+    padding: 0;
+    border-style: none;
+    background-color: rgb(37, 122, 197);
+    border: rgba(57, 100, 208, 1) 1px solid;
+    color: rgb(255, 255, 255) !important;
+    will-change: opacity, transform;
+    box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 #829fff;
+    border-radius: 4px;
+    height: 50px;
+    width: 85%;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    font-family: 'Sen', sans-serif;
+    text-align: center;
+    font-size: 18px;
+  }
+
+.titleBuy{
+    font-size: 25px;
+    font-weight: 600;
+    font-family: 'Sen', sans-serif;
+    margin: 0;
+    margin-top: 0;
+    width: 100%;
+}
+
+.noEngagement{
+    font-size: 15px;
+    font-family: 'Sen', sans-serif;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.buttonBuyPricing{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    bottom: 50px;
+    padding: 0;
+    border-style: none;
+    background: rgba(57, 100, 208, 1);
+  background: -moz-linear-gradient(
+    left,
+    rgba(57, 100, 208, 1) 0%,
+    rgb(45, 170, 201) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(57, 100, 208, 1) 0%,
+    rgb(45, 170, 201) 100%
+  );
+    will-change: opacity, transform;
+    box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 #829fff;
+    border-radius: 10px;
+    width: 80%;
+    height: 100px;
+    color: rgb(255, 255, 255);
+    border: rgb(4, 46, 161) 2px solid;
+    font-family: 'Sen', sans-serif;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 30px;
+    margin-top: 15px;
+    padding-top: 5px;
+  }
+
+
+@media screen and (max-width: 1280px){
+    .buttonPricing2{
+        height: 70px !important;
+        margin-top: 35px;
+    }
+    .buttonPricing{
+        height: 70px !important;
+        margin-top: 35px;
+        position: relative;
+    }
+    .containerPricing{
+        flex-direction: column;
+        height: 580vh !important;
+        display: flex;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .containerOptionPlan{
+        height: 60px;
+    }
+    .textOptionPlan{
+        font-size: 18px;
+    }
+    .backPricingImg{
+        display: none;
+    }
+    .buttonPricing{
+        height: 40px;
+        bottom: 30px;
+    }
+    .buttonPricing2{
+        height: 40px;
+        bottom: 30px;
+    }
+    .buttonPricing3{
+        height: 40px;
+        bottom: 30px;
+    }
+    .contentPlanStripe{
+        padding-bottom: 0px;
+        width: 100%;
+        padding-right: 30px;
+        padding-left: 30px;
+        margin-bottom: 0px;
+        height: 450px;
+    }
+    .contentPlan{
+        padding-bottom: 0px;
+        width: 90%;
+        margin-bottom: 90px;
+        margin-top: 50px;
+    }
+    .containerPricingBuy{
+        width: 90% !important;
+        margin-bottom: 90px !important;
+        padding: 5px !important;
+        padding-bottom: 30px !important;
+    }
+    .buttonBuyPricing{
+        bottom: 25px;
+        height: 100px;
+    }
+}
