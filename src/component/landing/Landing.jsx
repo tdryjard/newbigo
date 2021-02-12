@@ -4,6 +4,8 @@ import ubereats from '../../image/ubereats.png'
 import delivroo from '../../image/delivroo.png'
 import { PayPalButton } from "react-paypal-button-v2";
 import Paypal from '../Paypal'
+import usnb from '../../image/1us.png'
+import {url} from '../../api/url'
 import './Landing.css'
 
 const Landing = () => {
@@ -14,6 +16,16 @@ const Landing = () => {
     const [phone, setPhone] = useState('')
     const [verifPhone, setVerifPhone] = useState('')
     const [error, setError] = useState('')
+    const [credit, setCredit] = useState('')
+
+    useEffect(() => {
+        fetch(`${url.replace('/api', '')}/get-credit`)
+        .then(res => res.json())
+        .then(res => {
+            console.log(res)
+            setCredit(res[0].stock)
+        })
+    }, [])
 
     return(
         <div className="container">
@@ -28,6 +40,8 @@ const Landing = () => {
             <>
             <p className="headContent">CRÉEZ UN NOUVEAU COMPTE POUR SEULEMENT 5€</p>
             <p className="headContent2">Quel nouveau compte souhaitez vous obtenir ?</p>
+            {credit && credit < 1.5 &&
+            <div className="filterNoCredit">Plus de numéro de téléphone en stock pour aujourd'hui, désolé :(<br/><br/>à demain !</div>}
             <img onClick={() => setService('Uber eats')} className="marque" src={ubereats}/>
             <img onClick={() => setService('Delivroo')} className="marque" src={delivroo}/>
             </>
@@ -96,6 +110,12 @@ const Landing = () => {
             sera reçu sur votre numéro attribué {vonagePhone}<br/><br/>
             Puis automatiquement renvoyé par SMS sur votre numéro personnel {phone}.<br/><br/>
             <span style={{fontSize: '18px'}}> Merci de ne pas relancer la procédure d'inscription plusieurs fois d'affilée, le transfert du code d'activation peut prendre entre 10 secondes à 5 minutes</span>.</p>
+            <ul>
+                <span style={{fontWeight: 'bold', marginBottom: '15px', fontSize: '18px'}}> Les Bonne pratiques !<br/><br/></span>
+                <li>Lors du renseignement de votre nouveau n° de téléphone, sélectionnez <img style={{height: '70px', width: 'auto'}} src={usnb}/> <br/><br/></li>
+                <li>Utilisez une adresse email jamais renseignée sur uber/delivroo (se taper le front sur le clavier fonctionnera)<br/><br/></li>
+                <li>Savourer son repas !<br/><br/></li>
+            </ul>
             {service === 'Uber eats' ?
             <a href="https://codepromo.20minutes.fr/code-promo/uber-eats" target="_blank" rel="nopooner noreferrer"
             className="voirpromo">VOIR LES PROMOTIONS</a>
