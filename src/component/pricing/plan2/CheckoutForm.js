@@ -40,7 +40,8 @@ const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) =
 
 
     const subscription = async (event) => {
-        if (!phone || phone.lenght < 10) setError('Veuillez entrer votre numéro de téléphone')
+        console.log((!phone || phone.split('').lenght < 11), phone, phone.split(''))
+        if (!phone || phone.split('').lenght !== 11) setError('Veuillez entrer votre numéro de téléphone en +33 exemple : 33655555555')
         else if (phone !== verifPhone) setError(`Veuillez répéter correctement votre numéro de téléphone`)
         else {
             setLoad(true)
@@ -63,7 +64,6 @@ const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) =
                     if (result) createPaymentMethod(elements.getElement(CardElement), result.customer.id, 'price_1IJy1FKleZ50Ivn6jrJjguT9')
                 });
         }
-
     }
 
     function createPaymentMethod(cardElement, customerId, priceId) {
@@ -138,7 +138,7 @@ const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) =
 
     return (
         <div className="contentPlanStripe" >
-            {error && <p style={{fontSize: '15px', color: 'red'}} className="errorPay">{error}</p>}
+            {error && <p style={{fontSize: '15px', color: 'red', maxWidth: '90%'}} className="errorPay">{error}</p>}
             {!load ?
                 <>
                     <input className="inputPricing" onChange={(e) => setPhone(e.target.value)} placeholder="Votre numéro de téléphone" />

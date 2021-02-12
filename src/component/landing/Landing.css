@@ -109,6 +109,24 @@
     cursor: pointer;
 }
 
+.voirpromo2{
+    width: 300px;
+    height: 75px;
+    border-radius: 7px;
+    box-shadow: 2px 2px 5px rgb(202, 216, 228);
+    background-color: rgb(37, 122, 197);
+    color: white;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 22px;
+    margin-top: 50px;
+}
+
 .buttonPayment{
     background-image: url('../../image/credit_card.png');
     background-position: center;
@@ -118,6 +136,11 @@
     box-shadow: 1px 1px 3px rgb(151, 151, 151);
     border: 0px white solid;
     cursor: pointer;
+}
+
+.paypalContainer{
+    margin-top: 25px;
+    width: 100%;
 }
 
 @media screen and (max-width: 800px){

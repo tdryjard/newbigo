@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import Pricing from '../pricing/Pricing'
 import ubereats from '../../image/ubereats.png'
 import delivroo from '../../image/delivroo.png'
+import { PayPalButton } from "react-paypal-button-v2";
+import Paypal from '../Paypal'
 import './Landing.css'
 
 const Landing = () => {
@@ -13,6 +15,8 @@ const Landing = () => {
 
     return(
         <div className="container">
+            <head>
+            </head>
             {!vonagePhone ?
             <>
             <p className="titleBold">En moyenne 15€ d'économie</p>
@@ -33,23 +37,27 @@ const Landing = () => {
             <img className="marque" src={ubereats}/>
             <a href="https://codepromo.20minutes.fr/code-promo/uber-eats" target="_blank" rel="nopooner noreferrer"
             className="voirpromo">VOIR LES PROMOTIONS</a>
-            <button style={{marginTop: '5px', marginBottom: '5px'}} onClick={() => setServiceValid(true)} className="voirpromo">OBTENIR UN NOUVEAU COMPTE</button>
+            <button onClick={() => setServiceValid(true)} className="voirpromo2">OBTENIR UN NOUVEAU COMPTE</button>
             </div>
             :
             <div style={{marginTop: '60px'}} className="column">
             <img className="marque" src={delivroo}/>
             <a href="https://codepromo.20minutes.fr/code-promo/deliveroo" target="_blank" rel="nopooner noreferrer"
              style={{marginTop: '5px', marginBottom: '5px'}} className="voirpromo">VOIR LES PROMOTIONS</a>
-            <button onClick={() => setServiceValid(true)} className="voirpromo">OBTENIR UN NOUVEAU COMPTE</button>
+            <button onClick={() => setServiceValid(true)} className="voirpromo2">OBTENIR UN NOUVEAU COMPTE</button>
             </div>}
             </>
             : service && !paymentType && serviceValid ?
-
             <>
             <p style={{marginTop: '20px', maxWidth: '100%'}} className="title">Obtenez un numéro de téléphone et un code d'activation
              <span style={{fontWeight: 'bold', marginLeft: '5px', marginRight: '5px'}}>{service}</span> en 2 minutes pour 5€</p>
             <p className="headContent2">Sélectionnez votre mode de paiement</p>
             <button onClick={() => setPaymentType('card')} className="buttonPayment"/>
+    <Paypal 
+      total={5.00}
+      phone={phone}
+      service={service}
+    />
             </>
             : paymentType === 'card' &&
                 <Pricing setPhone={setPhone} phone={phone} vonagePhone={vonagePhone} setVonagePhone={setVonagePhone} service={service} />
@@ -63,8 +71,13 @@ const Landing = () => {
             <p style={{fontSize: '20px'}} className="title">Merci pour votre commande !<br/><br/> Votre numéro d'activation pour votre compte {service}{' '}
             sera reçu sur votre numéro attribué {vonagePhone}<br/><br/>
             Puis automatiquement renvoyé par SMS sur votre numéro personnel {phone}.<br/><br/>
-            <span style={{fontSize: '18px'}}> Merci de ne pas relancer la procédure d'inscription plusieurs fois d'affilée, le transfert du code d'activation peut prendre entre 1 et 5 minutes</span>.</p>
-
+            <span style={{fontSize: '18px'}}> Merci de ne pas relancer la procédure d'inscription plusieurs fois d'affilée, le transfert du code d'activation peut prendre entre 10 secondes à 5 minutes</span>.</p>
+            {service === 'Uber eats' ?
+            <a href="https://codepromo.20minutes.fr/code-promo/uber-eats" target="_blank" rel="nopooner noreferrer"
+            className="voirpromo">VOIR LES PROMOTIONS</a>
+            :
+            <a href="https://codepromo.20minutes.fr/code-promo/deliveroo" target="_blank" rel="nopooner noreferrer"
+             style={{marginTop: '5px', marginBottom: '5px'}} className="voirpromo">VOIR LES PROMOTIONS</a>}
                 </div>}
         </div>
     )
