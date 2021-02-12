@@ -25,7 +25,7 @@ const Paypal = ({phone, service, setVonagePhone}) => {
                     description: "Nouveau numéro de téléphone",
                     amount: {
                       currency_code: "EUR",
-                      value: 5.00,
+                      value: 0.01,
                     },
                   },
                 ],
