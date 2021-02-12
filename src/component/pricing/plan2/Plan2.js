@@ -4,13 +4,13 @@ import CheckoutForm from './CheckoutForm'
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-const Plan2 = (props) => {
+const Plan2 = ({phone, setPhone, vonagePhone, setVonagePhone, service}) => {
     const [active, setActive] = useState(false)
     const [userId, setUserId] = useState()
     const [token, setToken] = useState()
     const [type, setType] = useState()
 
-    const stripePromise = loadStripe('pk_live_u4e03SLJFJMC8k4Bv7g1T3Py00rrpMeJLo');
+    const stripePromise = loadStripe('pk_test_AGb35S7bWUgRgRUh3tsxgfrL00MDuBTKPS');
 
     useEffect(() => {
         if (localStorage.getItem('userId')) {
@@ -26,7 +26,7 @@ const Plan2 = (props) => {
 
     return (
                 <Elements stripe={stripePromise}>
-                    <CheckoutForm setGoodPay={props.setGoodPay} emailSub={props.emailSub} passwordSub={props.passwordSub} />
+                    <CheckoutForm  setPhone={setPhone} phone={phone} vonagePhone={vonagePhone} setVonagePhone={setVonagePhone} service={service} />
                 </Elements>
     );
 };

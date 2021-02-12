@@ -24,6 +24,13 @@
     padding-top: 0px;
 }
 
+.column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .headContent{
     width: 100%;
     background-color: rgb(37, 122, 197);
@@ -54,7 +61,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
+    height: 60px;
     margin-top: 0px;
     font-size: 20px;
     text-align: center;
@@ -83,6 +90,7 @@
     margin-bottom: 10px;
     box-shadow: 2px 2px 8px rgb(180, 180, 180);
     border-radius: 7px;
+    cursor: pointer;
 }
 
 .voirpromo{
@@ -98,6 +106,7 @@
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .buttonPayment{

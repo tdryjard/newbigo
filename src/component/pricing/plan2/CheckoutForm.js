@@ -3,10 +3,9 @@ import {url} from '../../../api/url'
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import loadGif from '../../../image/load.gif'
 
-const CheckoutForm = (props) => {
+const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) => {
 
-    const [mail, setMail] = useState('')
-    const [name, setName] = useState('')
+    const [verifPhone, setVerifPhone] = useState('')
     const [error, setError] = useState('')
     const [load, setLoad] = useState(false)
     const [redirect, setRedirect] = useState(false)
@@ -41,8 +40,8 @@ const CheckoutForm = (props) => {
 
 
     const subscription = async (event) => {
-        if (!validateEmail(mail)) setError('Veuillez entrer une email correct')
-        else if (!name) setError(`Veuillez entrer votre nom ou nom d'entreprise`)
+        if (!phone || phone.lenght < 10) setError('Veuillez entrer votre numéro de téléphone')
+        else if (phone !== verifPhone) setError(`Veuillez répéter correctement votre numéro de téléphone`)
         else {
             setLoad(true)
             fetch(`${url}/create-customer`, {
@@ -51,8 +50,7 @@ const CheckoutForm = (props) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: mail,
-                    name: name
+                    phone: phone
                 })
             })
                 .then(response => {
@@ -62,7 +60,7 @@ const CheckoutForm = (props) => {
                 .then(result => {
                     // result.customer.id is used to map back to the customer object
                     // result.setupIntent.client_secret is used to create the payment method
-                    if (result) createPaymentMethod(elements.getElement(CardElement), result.customer.id, 'price_1IF6BlKleZ50Ivn608T0axTl')
+                    if (result) createPaymentMethod(elements.getElement(CardElement), result.customer.id, 'price_1IJy1FKleZ50Ivn6jrJjguT9')
                 });
         }
 
@@ -100,31 +98,32 @@ const CheckoutForm = (props) => {
             }),
         })
             .then((response) => {
+                console.log(response)
                 return response.json();
             })
             // If the card is declined, display an error to the user.
             .then(async (result) => {
+                console.log(result)
                 if (result.error) {
                     // The card had an error when trying to attach it to a customer.
                     setError('Problème avec le paiement, veuillez réessayer ou nous contacter si le problème persiste')
                     throw result;
                 }
-                const resRegister = await fetch(`${url}/user/create`, {
+                setVonagePhone(result.phone)
+                const resRegister = await fetch(`${url}/command/create`, {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        email: props.emailSub,
-                        password: props.passwordSub,
-                        customer_id : result.id
-                    })
+                        phone_vonage: result.number,
+                        phone_client: phone,
+                        service: service,
+                        customer_id : customerId
+                    }),
                 })
                 if(resRegister){
                     const resJson = await resRegister.json()
-                    localStorage.setItem('cryptoSafeUserId', resJson.id)
-                    localStorage.setItem('cryptoSafeUserEmail', props.emailSub)
-                    window.location.reload()
                 }
             })
     }
@@ -137,29 +136,20 @@ const CheckoutForm = (props) => {
     }, [error])
 
 
-    const getMail = (e) => {
-        setMail(e.target.value)
-    }
-
-    const getSociety = (e) => {
-        setName(e.target.value)
-    }
-
-
     return (
         <div className="contentPlanStripe" >
             {error && <p style={{fontSize: '15px', color: 'red'}} className="errorPay">{error}</p>}
             {!load ?
                 <>
-                    <input className="inputPricing" onChange={getMail} placeholder="Votre numéro de téléphone" />
-                    <input className="inputPricing" onChange={getSociety} placeholder="Confirmer votre numéro" />
+                    <input className="inputPricing" onChange={(e) => setPhone(e.target.value)} placeholder="Votre numéro de téléphone" />
+                    <input className="inputPricing" onChange={(e) => setVerifPhone(e.target.value)} placeholder="Confirmer votre numéro" />
                 </>
                 : <img style={{ width: "50%" }} src={loadGif} />}
 
             <div className="inputPricingCard">
                 <CardElement options={CARD_OPTIONS} />
             </div>
-            <button onClick={subscription} type="submit" className="buttonBuyPricing"><p className="titleBuy">Obtenir nouveau compte 5€ </p></button>
+            <button onClick={() => subscription()} type="submit" className="buttonBuyPricing"><p className="titleBuy">Obtenir nouveau compte 5€ </p></button>
         </div>
     )
 }

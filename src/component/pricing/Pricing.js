@@ -5,9 +5,9 @@ import { CardElement } from '@stripe/react-stripe-js';
 import Plan2 from './plan2/Plan2'
 import './Pricing.css'
 
-const Pricing = (props) => {
+const Pricing = ({phone, setPhone, vonagePhone, setVonagePhone, service}) => {
 
-  const stripePromise = loadStripe('pk_live_u4e03SLJFJMC8k4Bv7g1T3Py00rrpMeJLo');
+  const stripePromise = loadStripe('pk_test_AGb35S7bWUgRgRUh3tsxgfrL00MDuBTKPS');
 
 
  const CARD_OPTIONS = {
@@ -33,7 +33,7 @@ const Pricing = (props) => {
 
   return (
         <Elements stripe={stripePromise}>
-          <Plan2 setGoodPay={props.setGoodPay} emailSub={props.emailSub} passwordSub={props.passwordSub} options={CARD_OPTIONS} />
+          <Plan2  setPhone={setPhone} phone={phone} vonagePhone={vonagePhone} setVonagePhone={setVonagePhone} options={CARD_OPTIONS} service={service} />
         </Elements>
   )
 }
