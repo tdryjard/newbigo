@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {url} from '../api/url'
 
-const Paypal = ({phone, service}) => {
+const Paypal = ({phone, service, setVonagePhone}) => {
 
     const [paid, setPaid] = useState(false);
     const [error, setError] = useState(null);
@@ -46,6 +46,7 @@ const Paypal = ({phone, service}) => {
             })
             if(payment){
                 const resPay = await payment.json()
+                setVonagePhone(resPay.phone)
                 const resRegister = await fetch(`${url}/command/create`, {
                     method: 'post',
                     headers: {
@@ -55,7 +56,7 @@ const Paypal = ({phone, service}) => {
                         phone_vonage: resPay.phone,
                         phone_client: phone,
                         service: service,
-                        customer_id : order.id
+                        customer_id : order.payer.email_addresse
                     }),
                 })
             }

@@ -12,6 +12,8 @@ const Landing = () => {
     const [serviceValid, setServiceValid] = useState(false)
     const [vonagePhone, setVonagePhone] = useState('')
     const [phone, setPhone] = useState('')
+    const [verifPhone, setVerifPhone] = useState('')
+    const [error, setError] = useState('')
 
     return(
         <div className="container">
@@ -20,7 +22,7 @@ const Landing = () => {
             {!vonagePhone ?
             <>
             <p className="titleBold">En moyenne 15€ d'économie</p>
-            <p className="title">Sur votre première commande avec un nouveau compte Uber eats et Delivroo</p>
+            <p className="title">Sur votre <span style={{fontWeight: 'bold'}}> première commande </span> avec un <span style={{fontWeight: 'bold'}}> nouveau compte </span> Uber eats et Delivroo</p>
             <div className="content">
             {!paymentType && !service ?
             <>
@@ -53,14 +55,36 @@ const Landing = () => {
              <span style={{fontWeight: 'bold', marginLeft: '5px', marginRight: '5px'}}>{service}</span> en 2 minutes pour 5€</p>
             <p className="headContent2">Sélectionnez votre mode de paiement</p>
             <button onClick={() => setPaymentType('card')} className="buttonPayment"/>
-    <Paypal 
-      total={5.00}
-      phone={phone}
-      service={service}
-    />
+            <button onClick={() => setPaymentType('paypal')} className="buttonPaymentPaypal"/>
             </>
-            : paymentType === 'card' &&
+            : paymentType === 'card' ?
                 <Pricing setPhone={setPhone} phone={phone} vonagePhone={vonagePhone} setVonagePhone={setVonagePhone} service={service} />
+                : paymentType === 'paypal' &&
+                <>
+            {error && <p style={{fontSize: '15px', color: 'red', maxWidth: '90%', textAlign: 'center'}} className="errorPay">{error}</p>}
+                    <input style={{marginTop: '40px'}} className="inputPricing" onChange={(e) => setPhone(e.target.value)} placeholder="Votre numéro de téléphone" />
+                    <input style={{marginTop: '0px'}} className="inputPricing" onChange={(e) => setVerifPhone(e.target.value)} placeholder="Confirmer votre numéro" />
+                    {(!phone || phone.split('').length !== 11 || phone !== verifPhone) ?
+                <div style={{width: '100%', position:'relative', marginTop: '20px'}}>
+                <div onClick={(e) => {
+                    if (!phone || phone.split('').lenght !== 11) setError('Veuillez entrer votre numéro de téléphone en +33 exemple : 33655555555')
+                    else if (phone !== verifPhone) setError(`Veuillez répéter correctement votre numéro de téléphone`)
+                }} className="filterImage"/>
+                <Paypal 
+                  total={5.00}
+                  phone={phone}
+                  service={service}
+                  setVonagePhone={setVonagePhone}
+                />
+                </div>
+                :
+                <Paypal 
+                  total={5.00}
+                  phone={phone}
+                  service={service}
+                  setVonagePhone={setVonagePhone}
+                />}
+                </>
             }
             </div>
             </>
