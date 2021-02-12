@@ -116,6 +116,7 @@ const Landing = () => {
                 <li>Utilisez une adresse email jamais renseignée sur uber/delivroo (se taper le front sur le clavier fonctionnera)<br/><br/></li>
                 <li>Savourer son repas !<br/><br/></li>
             </ul>
+            <p style={{fontSize: '18px', marginBottom: '20px'}}>Si vous avez rencontré un problème, veuillez indiqué le problème et votre n° de téléphone à : newbigo.contact@gmail.com</p>
             {service === 'Uber eats' ?
             <a href="https://codepromo.20minutes.fr/code-promo/uber-eats" target="_blank" rel="nopooner noreferrer"
             className="voirpromo">VOIR LES PROMOTIONS</a>
