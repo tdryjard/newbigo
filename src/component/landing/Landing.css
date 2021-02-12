@@ -160,11 +160,14 @@
     background-color: rgba(0, 0, 0, 0.397);
     z-index: 5000;
     width: 100%;
-    height: 35px;
+    height: 45px;
     position: absolute;
 }
 
 @media screen and (max-width: 800px){
+    .filterImage{
+        height: 35px;
+    }
     .content{
         width: 75%;
     }
