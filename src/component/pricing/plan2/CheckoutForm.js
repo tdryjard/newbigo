@@ -116,8 +116,8 @@ const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) =
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        phone_vonage: result.number,
-                        phone_client: result.phone,
+                        phone_vonage: result.phone,
+                        phone_client: phone,
                         service: service,
                         customer_id : customerId
                     }),
