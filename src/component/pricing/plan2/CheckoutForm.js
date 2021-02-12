@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {url} from '../../../api/url'
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import loadGif from '../../../image/load.gif'
 
 const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) => {
@@ -10,8 +10,8 @@ const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) =
     const [load, setLoad] = useState(false)
     const [redirect, setRedirect] = useState(false)
 
+    const stripe = useStripe();
     const elements = useElements();
-    const stripeFunction = useStripe();
 
     const CARD_OPTIONS = {
         iconStyle: 'solid',
@@ -40,8 +40,9 @@ const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) =
 
 
     const subscription = async (event) => {
-        console.log((!phone || phone.split('').lenght < 11), phone, phone.split(''))
-        if (!phone || phone.split('').lenght !== 11) setError('Veuillez entrer votre numéro de téléphone en +33 exemple : 33655555555')
+        const phoneSplit = phone.split('')
+        console.log(((phoneSplit.lenght > 10 && phoneSplit.lenght < 12)), phone, phoneSplit.length)
+        if (!phone || (phoneSplit.lenght > 10 && phoneSplit.lenght < 12)) setError('Veuillez entrer votre numéro de téléphone en +33 exemple : 33655555555')
         else if (phone !== verifPhone) setError(`Veuillez répéter correctement votre numéro de téléphone`)
         else {
             setLoad(true)
@@ -61,40 +62,19 @@ const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) =
                 .then(result => {
                     // result.customer.id is used to map back to the customer object
                     // result.setupIntent.client_secret is used to create the payment method
-                    if (result) createPaymentMethod(elements.getElement(CardElement), result.customer.id, 'price_1IJy1FKleZ50Ivn6jrJjguT9')
+                    if (result) createSubscription(result.customer.id)
                 });
         }
     }
 
-    function createPaymentMethod(cardElement, customerId, priceId) {
-        return stripeFunction
-            .createPaymentMethod({
-                type: 'card',
-                card: cardElement,
-            })
-            .then((result) => {
-                if (result.error) {
-                    setError('Problème avec le paiement, veuillez réessayer ou nous contacter si le problème persiste')
-                } else {
-                    createSubscription({
-                        customerId: customerId,
-                        paymentMethodId: result.paymentMethod.id,
-                        priceId: priceId,
-                    });
-                }
-            });
-    }
-
-    async function createSubscription({ customerId, paymentMethodId, priceId }) {
-        const resSub = await fetch(`${url}/create-subscription`, {
+    async function createSubscription(customerId) {
+        fetch(`${url}/create-subscription`, {
             method: 'post',
             headers: {
                 'Content-type': 'application/json',
             },
             body: JSON.stringify({
-                customerId: customerId,
-                paymentMethodId: paymentMethodId,
-                priceId: priceId,
+                customerId: customerId
             }),
         })
             .then((response) => {
@@ -109,23 +89,51 @@ const CheckoutForm = ({phone, setPhone, vonagePhone, setVonagePhone, service}) =
                     setError('Problème avec le paiement, veuillez réessayer ou nous contacter si le problème persiste')
                     throw result;
                 }
-                setVonagePhone(result.phone)
+                const clientSecret = result.client_secret;
+                paymenthod(clientSecret, customerId)
+            })
+    }
+
+    const paymenthod = async (clientSecret, customerId) => {
+        console.log(customerId)
+        // We don't want to let default form submission happen here,
+        // which would refresh the page.
+        let cardConfig = elements.getElement(CardElement)
+        const result = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: cardConfig,
+                billing_details: {
+                    phone : phone
+                },
+            }
+        });
+        if (result.error) {
+            setError('Un problème avec votre paiement est survenu, veuillez réessayer')
+            setLoad(false)
+        } else {
+            const payment = await fetch(`${url}/payment/paypal`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if(payment){
+                const resPay = await payment.json()
+                setVonagePhone(resPay.phone)
                 const resRegister = await fetch(`${url}/command/create`, {
                     method: 'post',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        phone_vonage: result.phone,
+                        phone_vonage: resPay.phone,
                         phone_client: phone,
                         service: service,
                         customer_id : customerId
                     }),
                 })
-                if(resRegister){
-                    const resJson = await resRegister.json()
-                }
-            })
+            }
+        }
     }
 
     useEffect(() => {

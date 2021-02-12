@@ -27,6 +27,8 @@ const Landing = () => {
         })
     }, [])
 
+    console.log(phone, verifPhone)
+
     return(
         <div className="container">
             <head>
@@ -81,7 +83,7 @@ const Landing = () => {
                     {(!phone || phone.split('').length !== 11 || phone !== verifPhone) ?
                 <div style={{width: '100%', position:'relative', marginTop: '20px'}}>
                 <div onClick={(e) => {
-                    if (!phone || phone.split('').lenght !== 11) setError('Veuillez entrer votre numéro de téléphone en +33 exemple : 33655555555')
+                    if (!phone || (phone.split('').lenght !== 11)) setError('Veuillez entrer votre numéro de téléphone en +33 exemple : 33655555555')
                     else if (phone !== verifPhone) setError(`Veuillez répéter correctement votre numéro de téléphone`)
                 }} className="filterImage"/>
                 <Paypal 
@@ -116,7 +118,7 @@ const Landing = () => {
                 <li>Utilisez une adresse email jamais renseignée sur uber/delivroo (se taper le front sur le clavier fonctionnera)<br/><br/></li>
                 <li>Savourer son repas !<br/><br/></li>
             </ul>
-            <p style={{fontSize: '18px', marginBottom: '20px'}}>Si vous avez rencontré un problème, veuillez indiqué le problème et votre n° de téléphone à : newbigo.contact@gmail.com</p>
+            <p style={{fontSize: '15px', marginBottom: '30px'}}>Si vous avez rencontré un problème, veuillez indiqué le problème et votre n° de téléphone à : newbigo.contact@gmail.com</p>
             {service === 'Uber eats' ?
             <a href="https://codepromo.20minutes.fr/code-promo/uber-eats" target="_blank" rel="nopooner noreferrer"
             className="voirpromo">VOIR LES PROMOTIONS</a>
