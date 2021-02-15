@@ -193,6 +193,20 @@ span{
     border-bottom-right-radius: 12px;
 }
 
+.codePromo{
+    background-color: rgb(108, 214, 108);
+    width: 290px;
+    height: 100px;
+    border-radius: 4px;
+    color: rgb(36, 36, 36);
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center !important;
+}
+
 @media screen and (max-width: 800px){
     .filterImage{
         height: 35px;

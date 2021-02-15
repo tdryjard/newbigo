@@ -17,6 +17,7 @@ const Landing = () => {
     const [verifPhone, setVerifPhone] = useState('')
     const [error, setError] = useState('')
     const [credit, setCredit] = useState('')
+    const [notice, setNotice] = useState(false)
 
     useEffect(() => {
         fetch(`${url.replace('/api', '')}/get-credit`)
@@ -65,7 +66,14 @@ const Landing = () => {
             <button onClick={() => setServiceValid(true)} className="voirpromo2">OBTENIR UN NOUVEAU COMPTE</button>
             </div>}
             </>
-            : service && !paymentType && serviceValid ?
+            : service && !paymentType && serviceValid && !notice ?
+            <>
+            <p className="title">Attention, {service} ont mis à jour leur sécurité, nos conseils profiter à coup sûr de sa réduction</p>
+            <p className="headContent2" style={{height: 'auto', paddingTop: '15px', paddingBottom: '15px', fontSize: '16px'}}>Supprimer temporairement de votre compte principal le moyen de paiement que vous comptez utiliser pour votre nouveau compte <br/><br/> aller sur l'application uber eat --> compte --> paiement --> selectionner le moyen de paiement --> supprimer le moyen de paiement</p>
+            <p className="headContent2" style={{height: 'auto', paddingTop: '15px', paddingBottom: '15px', fontSize: '16px'}}>Passer sa commande sur Google en navigation privée ou via le navigateur DuckDuckGo (non via votre application)</p>
+            <button onClick={() => setNotice(true)} className="voirpromo2">Compris !</button>
+                </>
+            : service && !paymentType && serviceValid && notice ?
             <>
             <p style={{marginTop: '20px', maxWidth: '100%'}} className="title">Obtenez un numéro de téléphone et un code d'activation
              <span style={{fontWeight: 'bold', marginLeft: '5px', marginRight: '5px'}}>{service}</span> en 2 minutes pour 5€</p>
@@ -108,6 +116,7 @@ const Landing = () => {
             <div className="content">
                 <p style={{fontSize: '25px', marginBottom: '0px'}} className="title">Votre numéro de téléphone : </p>
             <p style={{fontSize: '30px'}} className="titleBold">{vonagePhone}</p>
+            <p className="codePromo"><span style={{maxWidth: '90%'}}>Code promo du moment -15€ pour 20€ de commande :</span><span style={{fontSize: '25px', color: 'white', fontWeight: 'bold', marginTop: '10px'}}>eats-8zhxqa</span></p>
             <p style={{fontSize: '20px'}} className="title">Merci pour votre commande !<br/><br/> Votre numéro d'activation pour votre compte {service}{' '}
             sera reçu sur votre numéro attribué {vonagePhone}<br/><br/>
             Puis automatiquement renvoyé par SMS sur votre numéro personnel {phone}.<br/><br/>
