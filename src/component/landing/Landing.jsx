@@ -17,7 +17,6 @@ const Landing = () => {
     const [verifPhone, setVerifPhone] = useState('')
     const [error, setError] = useState('')
     const [credit, setCredit] = useState('')
-    const [notice, setNotice] = useState(false)
 
     useEffect(() => {
         fetch(`${url.replace('/api', '')}/get-credit`)
@@ -66,14 +65,7 @@ const Landing = () => {
             <button onClick={() => setServiceValid(true)} className="voirpromo2">OBTENIR UN NOUVEAU COMPTE</button>
             </div>}
             </>
-            : service && !paymentType && serviceValid && !notice ?
-            <>
-            <p className="title">Attention, {service} ont mis à jour leur sécurité, nos conseils profiter à coup sûr de sa réduction</p>
-            <p className="headContent2" style={{height: 'auto', paddingTop: '15px', paddingBottom: '15px', fontSize: '16px'}}>Supprimer temporairement de votre compte principal le moyen de paiement que vous comptez utiliser pour votre nouveau compte <br/><br/> aller sur l'application uber eat --> compte --> paiement --> selectionner le moyen de paiement --> supprimer le moyen de paiement</p>
-            <p className="headContent2" style={{height: 'auto', paddingTop: '15px', paddingBottom: '15px', fontSize: '16px'}}>Passer sa commande sur Google en navigation privée ou via le navigateur DuckDuckGo (non via votre application)</p>
-            <button onClick={() => setNotice(true)} className="voirpromo2">Compris !</button>
-                </>
-            : service && !paymentType && serviceValid && notice ?
+            : service && !paymentType && serviceValid ?
             <>
             <p style={{marginTop: '20px', maxWidth: '100%'}} className="title">Obtenez un numéro de téléphone et un code d'activation
              <span style={{fontWeight: 'bold', marginLeft: '5px', marginRight: '5px'}}>{service}</span> en 2 minutes pour 5€</p>
@@ -116,17 +108,19 @@ const Landing = () => {
             <div className="content">
                 <p style={{fontSize: '25px', marginBottom: '0px'}} className="title">Votre numéro de téléphone : </p>
             <p style={{fontSize: '30px'}} className="titleBold">{vonagePhone}</p>
-            <p className="codePromo"><span style={{maxWidth: '90%'}}>Code promo du moment -15€ pour 20€ de commande :</span><span style={{fontSize: '25px', color: 'white', fontWeight: 'bold', marginTop: '10px'}}>eats-8zhxqa</span></p>
+            {service === 'Uber eats' &&
+            <p className="codePromo"><span style={{maxWidth: '90%'}}>Code promo du moment -15€ pour 20€ de commande :</span><span style={{fontSize: '25px', color: 'white', fontWeight: 'bold', marginTop: '10px'}}>eats-8zhxqa</span></p>}
             <p style={{fontSize: '20px'}} className="title">Merci pour votre commande !<br/><br/> Votre numéro d'activation pour votre compte {service}{' '}
             sera reçu sur votre numéro attribué {vonagePhone}<br/><br/>
             Puis automatiquement renvoyé par SMS sur votre numéro personnel {phone}.<br/><br/>
             <span style={{fontSize: '18px'}}> Merci de ne pas relancer la procédure d'inscription plusieurs fois d'affilée, le transfert du code d'activation peut prendre entre 10 secondes à 5 minutes</span>.</p>
-            <ul>
-                <span style={{fontWeight: 'bold', marginBottom: '15px', fontSize: '18px'}}> Les Bonne pratiques !<br/><br/></span>
-                <li>Lors du renseignement de votre nouveau n° de téléphone, sélectionnez <img style={{height: '70px', width: 'auto'}} src={usnb}/> <br/><br/></li>
-                <li>Utilisez une adresse email jamais renseignée sur uber/delivroo (se taper le front sur le clavier fonctionnera)<br/><br/></li>
-                <li>Savourer son repas !<br/><br/></li>
-            </ul>
+
+            <span style={{fontWeight: 'bold', marginBottom: '15px', fontSize: '18px'}}> Les Bonne pratiques !<br/><br/></span>
+            <p className="headContent2" style={{height: 'auto', paddingTop: '15px', paddingBottom: '15px', fontSize: '16px', textAlign: 'start'}}>Utilisez une adresse email jamais et un nom renseignée sur uber/delivroo (se taper le front sur le clavier fonctionnera)</p>
+            <p className="headContent2" style={{height: 'auto', paddingTop: '15px', paddingBottom: '15px', fontSize: '16px', textAlign: 'start'}}>Lors du renseignement de votre nouveau n° de téléphone, sélectionnez <img style={{height: '70px', width: 'auto'}} src={usnb}/></p>
+            <p className="headContent2" style={{height: 'auto', paddingTop: '15px', paddingBottom: '15px', fontSize: '16px', textAlign: 'start'}}>Supprimer temporairement de votre compte principal le moyen de paiement que vous comptez utiliser pour votre nouveau compte <br/><br/> aller sur l'application uber eat --> compte --> paiement --> selectionner le moyen de paiement --> supprimer le moyen de paiement</p>
+            <p className="headContent2" style={{height: 'auto', paddingTop: '15px', paddingBottom: '15px', fontSize: '16px', textAlign: 'start'}}>Passer sa commande sur Google en navigation privée ou via le navigateur DuckDuckGo (non via votre application)</p>
+            <p className="headContent2" style={{height: 'auto', paddingTop: '15px', paddingBottom: '15px', fontSize: '16px', textAlign: 'start'}}>Savourer son repas !</p>
             <p style={{fontSize: '15px', marginBottom: '30px'}}>Si vous avez rencontré un problème, veuillez indiqué le problème et votre n° de téléphone à : newbigo.contact@gmail.com</p>
             {service === 'Uber eats' ?
             <a href="https://codepromo.20minutes.fr/code-promo/uber-eats" target="_blank" rel="nopooner noreferrer"
